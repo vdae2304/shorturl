@@ -2,6 +2,9 @@ from django import forms
 from django.db import models
 
 
+"""
+Formulario de inicio de sesión.
+"""
 class LoginForm(forms.Form):
     username = forms.CharField(
         label='Usuario',
@@ -17,6 +20,9 @@ class LoginForm(forms.Form):
     )
 
 
+"""
+Formulario de registro de nuevo usuario.
+"""
 class SignUpForm(forms.Form):
     username = forms.CharField(
         label='Usuario',

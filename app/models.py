@@ -1,9 +1,23 @@
 from django.db import models
+from django.contrib.auth.models import User
+import uuid
 
-# Create your models here.
-class ShortURLs(models.Model):
+
+"""
+Token único de usuario para acceder a la REST-API.
+"""
+class UserTokens(models.Model):
     id = models.AutoField(primary_key=True)
-    url = models.CharField(max_length=255)
-    shorturl = models.CharField(max_length=10, unique=True)
-    creator = models.IntegerField(default=None)
-    token = models.CharField(max_length=20, default=None)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    token = models.UUIDField(default=uuid.uuid4)
+
+
+"""
+Lista de URLs acortadas.
+"""
+class URLs(models.Model):
+    id = models.AutoField(primary_key=True)
+    long_url = models.CharField(max_length=255)
+    short_url = models.CharField(max_length=8, unique=True)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    is_private = models.BooleanField(default=False)

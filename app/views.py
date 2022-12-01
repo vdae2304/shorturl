@@ -1,22 +1,25 @@
 from django.shortcuts import redirect, render
-from django.http import HttpResponse
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
-from . import models
-from . import forms
 
-import json
-import random
-import string
+from django.contrib import auth
+from django.contrib.auth.models import User
+
+from . import forms
+from . import models
 
 
 """
 Página de inicio que verá el usuario al ingresar al sitio.
 """
 def indexView(request):
-    username = request.user.username if request.user.is_authenticated else ""
+    if request.user.is_authenticated:
+        username = request.user.username
+        token = models.UserTokens.objects.get(user_id=request.user.id).token
+    else:
+        username = ""
+        token = ""
     return render(request, 'index.html', context={
-        'username': username
+        'username': username,
+        'token': token
     })
 
 
@@ -44,9 +47,9 @@ def authView(request):
         return redirect("/index/")
     username = form.cleaned_data["username"]
     password = form.cleaned_data["password"]
-    user = authenticate(request, username=username, password=password)
+    user = auth.authenticate(request, username=username, password=password)
     if user is not None:
-        login(request, user)
+        auth.login(request, user)
         return redirect("/index/")
     else:
         return redirect("/login?login_fail=1")
@@ -57,7 +60,7 @@ Finaliza la sesión del usuario.
 """
 def logoutView(request):
     if request.user.is_authenticated:
-        logout(request)
+        auth.logout(request)
     return redirect("/index/")
 
 
@@ -66,13 +69,13 @@ Formulario para registrar nuevo usuario.
 """
 def signUpView(request):
     form = forms.SignUpForm()
-    username_in_use = request.GET.get("username_in_use", 0)
-    email_used = request.GET.get("email_in_use", 0)
-    password_mismatch = request.GET.get("password_mismatch", 0)
+    username_in_use = request.GET.get('username_in_use', 0)
+    email_in_use = request.GET.get('email_in_use', 0)
+    password_mismatch = request.GET.get('password_mismatch', 0)
     return render(request, 'signup.html', context={
         'form': form,
         'username_in_use': username_in_use,
-        'email_in_use': email_used,
+        'email_in_use': email_in_use,
         'password_mismatch': password_mismatch
     })
 
@@ -84,59 +87,28 @@ def registerView(request):
     form = forms.SignUpForm(request.POST)
     if not form.is_valid():
         return redirect("/index/")
+
     username = form.cleaned_data["username"]
     email = form.cleaned_data["email"]
     password = form.cleaned_data["password"]
     confirm_password = form.cleaned_data["confirm_password"]
-    if User.objects.filter(username=username).count() > 0:
+    if User.objects.filter(username=username).exists():
         return redirect("/sign-up?username_in_use=1")
-    if User.objects.filter(email=email).count() > 0:
+    if User.objects.filter(email=email).exists():
         return redirect("/sign-up?email_in_use=1")
     if password != confirm_password:
         return redirect("/sign-up?password_mismatch=1")
+
     user = User.objects.create_user(
         username=username,
         email=email,
         password=password
     )
     user.save()
+    token = models.UserTokens(user_id=user.id)
+    token.save()
+
     return redirect("/index/")
-
-
-def random_string(length):
-    return "".join(random.choices(string.ascii_letters + string.digits,
-                                  k=length))
-
-def makeURLView(request):
-    if request.method == "POST":
-        try:
-            body = json.loads(request.body)
-            response = []
-            for item in body["URLs"]:
-                url = item["URL"]
-                if not url.startswith("https://"):
-                    url = "https://" + url
-                isPrivate = item["isPrivate"]
-                shorturl = random_string(10)
-                token = random_string(20) if isPrivate else ""
-                newURL = models.ShortURLs(
-                    url=url,
-                    shorturl=shorturl,
-                    creator=0,
-                    token=token
-                )
-                newURL.save()
-                response.append({
-                    "longURL": url,
-                    "shortURL": request.get_host() + "/redirect/" + shorturl,
-                    "token": token
-                })
-            response = {"URLs": response}
-            response = json.dumps(response)
-            return HttpResponse(response, content_type='application/json')
-        except KeyError:
-            return HttpResponse("JSON malformed", status=500)
-    return HttpResponse("Hola mundo")
 
 
 """
@@ -144,7 +116,7 @@ Redirige a la URL larga. Si no existe una URL asociada, redirige a /index/.
 """
 def redirectView(request, short_url):
     try:
-        entry = models.ShortURLs.objects.get(shorturl=short_url)
-        return redirect(entry.url)
-    except models.ShortURLs.DoesNotExist:
+        long_url = models.URLs.objects.get(short_url=short_url).long_url
+        return redirect(long_url)
+    except models.URLs.DoesNotExist:
         return redirect("/index/")
