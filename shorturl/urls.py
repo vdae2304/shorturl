@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from app import views
+from app import rest_api
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    # Sitio web.
     path('', views.indexView, name='Index'),
     path('index/', views.indexView, name='Index'),
     path('login/', views.loginView, name='Login form'),
@@ -26,6 +27,8 @@ urlpatterns = [
     path('logout/', views.logoutView, name='Logout user'),
     path('sign-up/', views.signUpView, name='Sign up user'),
     path('register/', views.registerView, name='Register new user'),
-    path('make-url/', views.makeURLView, name='Make short URL'),
-    path('redirect/<str:short_url>', views.redirectView, name='Redirect to long URL')
+    path('redirect/<str:short_url>', views.redirectView, name='Redirect to long URL'),
+    # Rest-API.
+    path('api/', rest_api.makeURL, name='Rest-API'),
+    path('api/<int:id>', rest_api.editURL, name='Rest-API'),
 ]
