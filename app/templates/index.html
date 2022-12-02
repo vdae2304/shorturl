@@ -11,6 +11,15 @@
         <!--Local scripts-->
         {% load static %}
         <script src="{% static 'index.js' %}"></script>
+        {% if token != "" %}
+        <script>
+            const token = "{{ token }}";
+        </script>
+        {% else %}
+        <script>
+            const token = null;
+        </script>
+        {% endif %}
     </head>
     <body class="container border px-5 py-3">
         <h1>Acortar URL</h1>

@@ -4,28 +4,32 @@
  * @param URL La URL a recortar.
  * @param callback Función a llamar como respuesta. La función debe
  * aceptar como argumento un objeto con los siguientes atributos:
- *     - "longURL": La URL original.
- *     - "shortURL": La URL corta.
- *     - "token": Un token para acceder a la URL (cuando es privada).
+ *     - "id": ID de la URL creada.
+ *     - "long_url": URL original.
+ *     - "short_URL": URL corta.
  */
 function makeURL(URL, callback) {
-    fetch("/make-url/", {
-        method: "POST",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            "URLs": [
-                {
-                    "URL": URL,
-                    "isPrivate": false
-                }
-            ]
-        })
+    headers = {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+    };
+    if (token) {
+        headers["Authorization"] = token;
+    }
+    body = JSON.stringify([
+        {
+            "url": URL,
+            "is_private": false,
+            "allow_list": []
+        }
+    ]);
+    fetch("/api/", {
+        "method": "POST",
+        "headers": headers,
+        "body": body
     })
     .then((response) => response.json())
-    .then((data) => callback(data.URLs[0]))
+    .then((data) => callback(data[0]))
     .catch((error) => console.error("Error:", error));
 }
 
@@ -43,8 +47,8 @@ window.onload = function() {
         () => makeURL(URL.value, (data) => {
             inputForm.classList.toggle("d-none");
             outputForm.classList.toggle("d-none");
-            longURL.value = data.longURL;
-            shortURL.value = data.shortURL;
+            longURL.value = data.long_url;
+            shortURL.value = data.short_url;
         })
     );
 
