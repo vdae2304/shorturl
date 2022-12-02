@@ -357,6 +357,9 @@ token: 80ae398c-fb2c-40cf-ac5d-fec93ec4dff7
 }
 ```
 
+**Status code:**
+
+200
 
 ### Eliminar URLs
 
@@ -383,3 +386,7 @@ token: 80ae398c-fb2c-40cf-ac5d-fec93ec4dff7
 **Método:**
 
 DELETE
+
+**Status code:**
+
+200
