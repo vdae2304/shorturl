@@ -5,6 +5,9 @@
 - [Servicio web para recortar URLs](#servicio-web-para-recortar-urls)
   - [Contenido](#contenido)
   - [Instalación](#instalación)
+    - [Creación de un entorno virtual](#creación-de-un-entorno-virtual)
+    - [Configurar el entorno virtual](#configurar-el-entorno-virtual)
+    - [Inicie el servidor](#inicie-el-servidor)
   - [REST-API](#rest-api)
     - [Consultar URLs](#consultar-urls)
     - [Agregar nueva URL](#agregar-nueva-url)
@@ -14,24 +17,24 @@
 
 ## Instalación
 
-1. Crear un entorno virtual llamado `shorturl`.
+### Creación de un entorno virtual
+
+1. Cree un entorno virtual llamado `shorturl`.
 
 ```bash
 python -m env shorturl
-cd shorturl
-./Scripts/activate
+.shorturl/Scripts/activate
 ```
 
-2. El siguiente servicio web hace uso de Django y MySQL, por lo que es
-necesario instalarlo en caso de que no lo esté.
+2. Asegúrse de tener instalado Django en el entorno. Si no lo tiene, puede
+instalarlo con el siguiente comando.
 
 ```bash
 python -m pip install Django
-python -m pip install mysql
 ```
 
-3. Descargar y guardar el contenido de este repositorio en el entorno recién
-creado.
+3. Descargue el contenido del repositorio dentro del entorno virtual recién
+creado. El directorio debería verse de la siguiente manera.
 
 ```
 > shorturl
@@ -40,14 +43,20 @@ creado.
     > Scripts
     > shorturl
         > app
+            > ...
         > shorturl
-            > settings.py
-            ...
+            > ...
         > manage.py
         > readme.md
     ...
 ```
-4. Configurar los datos de la conexión a MySQL en el archivo `settings.py`
+
+### Configurar el entorno virtual
+
+1. Abra el archivo `settings.py` localizando dentro de
+`shorturl/shorturl/shorturl`. En este archivo localice la sección `DATABASES` y
+actualícelo con las credenciales para la base de datos, como nombre, contraseña,
+host, etc.
 
 ```python
 DATABASES = {
@@ -62,12 +71,19 @@ DATABASES = {
 }
 ```
 
-6. Iniciar el servicio web.
+2. Realice las migraciones para generar las tablas que serán utilizadas por el
+servidor web.
 
 ```bash
-cd shorturl
+cd shorturl/shorturl/shorturl/
 python manage.py makemigrations
 python manage.py migrate
+```
+
+### Inicie el servidor
+
+1. Inicie el servicio web.
+```bash
 python manage.py runserver
 ```
 
