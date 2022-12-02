@@ -10,9 +10,13 @@
     - [Inicie el servidor](#inicie-el-servidor)
   - [REST-API](#rest-api)
     - [Consultar URLs](#consultar-urls)
+      - [Ejemplo](#ejemplo)
     - [Agregar nueva URL](#agregar-nueva-url)
+      - [Ejemplo](#ejemplo-1)
     - [Editar URLs](#editar-urls)
+      - [Ejemplo](#ejemplo-2)
     - [Eliminar URLs](#eliminar-urls)
+      - [Ejemplo](#ejemplo-3)
 
 
 ## Instalación
@@ -117,7 +121,7 @@ es privada.
 registrados como invitados.
 * `history`: Lista de usuarios registrados que accedieron a la URL.
 
-**Ejemplo:**
+#### Ejemplo
 
 **URL:**
 
@@ -246,7 +250,7 @@ es privada.
 * `401`: Se intentó crear una URL privada sin un token válido.
 * `500`: El cuerpo no es un JSON válido o este no está en el formato requerido.
 
-**Ejemplo**
+#### Ejemplo
 
 **URL:**
 
@@ -330,7 +334,7 @@ URL. Este campo es ignorado si `is_private=False`.
 * `401`: El usuario no tiene permitido editar la URL.
 * `500`: El cuerpo no es un JSON válido o este no está en el formato requerido.
 
-**Ejemplo:**
+#### Ejemplo
 
 **URL:**
 
@@ -377,7 +381,7 @@ Authorization: 80ae398c-fb2c-40cf-ac5d-fec93ec4dff7
 * `400`: El ID no corresponde a una URL válida.
 * `401`: El usuario no tiene permitido eliminar la URL.
 
-**Ejemplo:**
+#### Ejemplo
 
 **URL:**
 
