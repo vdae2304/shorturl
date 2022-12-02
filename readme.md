@@ -109,7 +109,7 @@ Un JSON con la lista de URLs con los siguientes campos:
 * `id`: ID de la URL.
 * `long_url`: URL original.
 * `short_url`: URL corta.
-* `creator`: Nombre de usuario que creo la URL.
+* `creator`: Nombre de usuario que creó la URL.
 * `is_private`: Un booleano indicando si la URL es privada o no.
 * `allow_list`: Lista de usuarios que tienen permitido acceder a la URL cuando
 es privada.
