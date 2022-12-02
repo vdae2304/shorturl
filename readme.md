@@ -8,6 +8,7 @@
     - [Creación de un entorno virtual](#creación-de-un-entorno-virtual)
     - [Configurar el entorno virtual](#configurar-el-entorno-virtual)
     - [Inicie el servidor](#inicie-el-servidor)
+  - [Sitio web](#sitio-web)
   - [REST-API](#rest-api)
     - [Consultar URLs](#consultar-urls)
       - [Ejemplo](#ejemplo)
@@ -90,6 +91,30 @@ python manage.py migrate
 ```bash
 python manage.py runserver
 ```
+
+## Sitio web
+
+Al ingresar por primera vez al sitio web (`<host>` o `<host>/index/`) veremos un
+formulario con el cual podremos recortar una URL.
+
+![Inicio](screenshots/homepage.png)
+
+Para recortar una URL, simplemente ingresamos la URL que deseamos recortar y
+posteriormente hacemos click en *Recortar*.
+
+![Recortar URL](screenshots/homepage2.png)
+
+De esta forma, cada vez que queramos acceder a la URL larga, podemos hacerlo
+ingresando la URL corta en su lugar.
+
+Adicionalmente, el sitio nos permite crear usuarios e iniciar sesión. Al
+iniciar sesión, tendremos acceso a un token único por usuario el cual nos
+permitirá guardar las URLs que creemos, editarlas y eliminarlas por medio de la
+[REST-API](#rest-api).
+
+![Recortar URL](screenshots/token.png)
+
+![Recortar URL](screenshots/my-urls.png)
 
 ## REST-API
 
