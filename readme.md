@@ -217,7 +217,7 @@ GET
 
 **Headers:**
 
-* `token` (Opcional): Token único de usuario.
+* `Authorization` (Opcional): Token único de usuario.
 
 **Body:**
 
@@ -259,7 +259,7 @@ POST
 **Headers:**
 
 ```
-token: 80ae398c-fb2c-40cf-ac5d-fec93ec4dff7
+Authorization: 80ae398c-fb2c-40cf-ac5d-fec93ec4dff7
 ```
 
 **Body:**
@@ -312,7 +312,7 @@ token: 80ae398c-fb2c-40cf-ac5d-fec93ec4dff7
 
 **Headers:**
 
-* `token`: Token único de usuario.
+* `Authorization`: Token único de usuario.
 
 **Body:**
 
@@ -343,7 +343,7 @@ PUT
 **Headers:**
 
 ```
-token: 80ae398c-fb2c-40cf-ac5d-fec93ec4dff7
+Authorization: 80ae398c-fb2c-40cf-ac5d-fec93ec4dff7
 ```
 
 **Body:**
@@ -369,7 +369,7 @@ token: 80ae398c-fb2c-40cf-ac5d-fec93ec4dff7
 
 **Headers:**
 
-* `token`: Token único de usuario.
+* `Authorization`: Token único de usuario.
 
 **Status code:**
 
@@ -386,6 +386,12 @@ token: 80ae398c-fb2c-40cf-ac5d-fec93ec4dff7
 **Método:**
 
 DELETE
+
+**Headers:**
+
+```
+Authorization: 80ae398c-fb2c-40cf-ac5d-fec93ec4dff7
+```
 
 **Status code:**
 
