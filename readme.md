@@ -75,7 +75,7 @@ DATABASES = {
 servidor web.
 
 ```bash
-cd shorturl/shorturl/shorturl/
+cd shorturl/shorturl/
 python manage.py makemigrations
 python manage.py migrate
 ```
