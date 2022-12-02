@@ -55,7 +55,7 @@ creado. El directorio debería verse de la siguiente manera.
 
 1. Abra el archivo `settings.py` localizando dentro de
 `shorturl/shorturl/shorturl`. En este archivo localice la sección `DATABASES` y
-actualícelo con las credenciales para la base de datos, como nombre, contraseña,
+actualícelo con las credenciales para la base de datos, como usuario, contraseña,
 host, etc.
 
 ```python
