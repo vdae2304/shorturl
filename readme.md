@@ -23,7 +23,7 @@
 
 ```bash
 python -m venv shorturl
-.shorturl/Scripts/activate
+./shorturl/Scripts/activate
 ```
 
 2. Asegúrse de tener instalado Django en el entorno. Si no lo tiene, puede
