@@ -27,6 +27,7 @@ urlpatterns = [
     path('logout/', views.logoutView, name='Logout user'),
     path('sign-up/', views.signUpView, name='Sign up user'),
     path('register/', views.registerView, name='Register new user'),
+    path('my-urls/', views.myURLSView, name='See created URLs'),
     path('redirect/<str:short_url>', views.redirectView, name='Redirect to long URL'),
     # Rest-API.
     path('api/', rest_api.makeURL, name='Rest-API'),

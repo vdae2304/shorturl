@@ -112,6 +112,21 @@ def registerView(request):
 
 
 """
+"""
+def myURLSView(request):
+    if not request.user.is_authenticated:
+        return redirect("/index/")
+    username = request.user.username
+    user_id = request.user.id
+    urls = models.URLs.objects.filter(creator_id=user_id)
+    return render(request, "my_urls.html", context={
+        'username': username,
+        "host": request.get_host(),
+        "urls": urls
+    })
+
+
+"""
 Redirige a la URL larga. Si no existe una URL asociada o esta es privada,
 redirige a /index/.
 """
