@@ -60,7 +60,7 @@ def GET(request):
             response.append({
                 'id': item.id,
                 'long_url': item.long_url,
-                'short_url': request.get_host() + "/redirect/" + item.short_url,
+                'short_url': request.get_host() + "/" + item.short_url,
                 'creator': creator,
                 'is_private': item.is_private,
                 'allow_list': [],
@@ -79,7 +79,7 @@ def GET(request):
             response.append({
                 'id': item.id,
                 'long_url': item.long_url,
-                'short_url': request.get_host() + "/redirect/" + item.short_url,
+                'short_url': request.get_host() + "/" + item.short_url,
                 'creator': creator,
                 'is_private': item.is_private,
                 'allow_list': allow_list,
@@ -161,7 +161,7 @@ def POST(request):
             response.append({
                 'id': entry.id,
                 'long_url': long_url,
-                'short_url': request.get_host() + "/redirect/" + short_url,
+                'short_url': request.get_host() + "/" + short_url,
                 'is_private': is_private,
                 'allow_list': allow_list
             })

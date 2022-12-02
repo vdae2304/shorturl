@@ -33,7 +33,7 @@
                         <a href="{{ url.long_url}}">{{ url.long_url}}</a>
                     </td>
                     <td scope="col">
-                        <a href="http://{{ host }}/redirect/{{ url.short_url}}">{{ host }}/redirect/{{ url.short_url}}</a>
+                        <a href="http://{{ host }}/{{ url.short_url}}">{{ host }}/{{ url.short_url}}</a>
                     </td>
                     {% if url.is_private %}
                     <td scope="col">Privada</td>
