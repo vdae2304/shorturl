@@ -112,11 +112,31 @@ def registerView(request):
 
 
 """
-Redirige a la URL larga. Si no existe una URL asociada, redirige a /index/.
+Redirige a la URL larga. Si no existe una URL asociada o esta es privada,
+redirige a /index/.
 """
 def redirectView(request, short_url):
     try:
-        long_url = models.URLs.objects.get(short_url=short_url).long_url
-        return redirect(long_url)
+        url = models.URLs.objects.get(short_url=short_url)
     except models.URLs.DoesNotExist:
         return redirect("/index/")
+
+    if request.user.is_authenticated:
+        user_id = request.user.id
+    elif not url.is_private:
+        user_id = None
+    else:
+        return redirect("/index/")
+
+    if url.is_private and not models.URLAllowList.objects.filter(
+        user_id=user_id,
+        url_id=url.id
+    ).exists():
+        return redirect("/index/")
+
+    visualization = models.URLVisualizations(
+        user_id=user_id,
+        url_id=url.id
+    )
+    visualization.save()
+    return redirect(url.long_url)

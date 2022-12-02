@@ -29,13 +29,12 @@
         <div class="container p-2">
             <div class="row justify-content-end">
                 <div class="col-md-auto">
-                    ¡Bienvenido <strong>{{username}}</strong>!
-                </div>
-                <div class="col-md-auto">
                     <a href="/logout/">Cerrar sesión</a>
                 </div>
             </div>
         </div>
+        <p>¡Bienvenido <strong>{{ username }}</strong>!</p>
+        <p>Tu token para hacer uso de la REST-API es <span class="text-info">{{ token }}</span></p>
         {% endif %}
         <div id="input-form" class="form-group">
             <label for="url">Ingrese la URL que desea recortar</label>
