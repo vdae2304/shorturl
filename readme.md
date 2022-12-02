@@ -22,7 +22,7 @@
 1. Cree un entorno virtual llamado `shorturl`.
 
 ```bash
-python -m env shorturl
+python -m venv shorturl
 .shorturl/Scripts/activate
 ```
 
